@@ -43,7 +43,7 @@ def freeze_bottom(top_layers: int):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("data")
+    ap.add_argument("data", help="a JSONL of {state, questions, gold|expected} rows, or a CSV")
     ap.add_argument("out")
     ap.add_argument("--base", default="english", help="english, multilingual, typed-decisions, a Hub id or a directory")
     ap.add_argument("--top-layers", type=int, default=6, help="encoder layers to train; -1 trains all of them")
@@ -54,6 +54,12 @@ def main():
     ap.add_argument("--max-len", type=int)
     ap.add_argument("--eval-data")
     ap.add_argument("--shuffle-options", action="store_true")
+    ap.add_argument("--device", default="auto", help="auto, cuda, mps or cpu")
+    csv = ap.add_argument_group("CSV input (one labelled text per row)")
+    csv.add_argument("--text-column", default="text")
+    csv.add_argument("--label-column", default="label")
+    csv.add_argument("--question-id", default="label", help="the id the question is saved under in questions.json")
+    csv.add_argument("--instructions", help="the question to ask, e.g. 'Which team should handle this?'")
     args = ap.parse_args()
 
     if args.top_layers >= 0:
@@ -66,10 +72,14 @@ def main():
         max_len=args.max_len,
         eval_data=args.eval_data,
         shuffle_options=("choice",) if args.shuffle_options else (),
+        text_column=args.text_column,
+        label_column=args.label_column,
+        question_id=args.question_id,
+        instructions=args.instructions,
     )
     base = lt.resolve_checkpoint_dir(args.base)
     t = time.time()
-    report = lt.finetune(args.data, base, args.out, config)
+    report = lt.finetune(args.data, base, args.out, config, device=args.device)
     report["minutes"] = round((time.time() - t) / 60, 1)
     keys = ["train_items", "calibration_items", "skipped", "epoch_loss", "temperature", "minutes"]
     print(json.dumps({k: report.get(k) for k in keys}, indent=2, default=str))
