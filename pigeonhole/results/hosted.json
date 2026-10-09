@@ -1,0 +1,110 @@
+{
+  "jev-latest": {
+    "email-routing": {
+      "passed": 9,
+      "total": 10,
+      "median_ms": 506
+    },
+    "issue-labeling": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 509
+    },
+    "lead-qualification": {
+      "passed": 9,
+      "total": 10,
+      "median_ms": 506
+    },
+    "moderation": {
+      "passed": 9,
+      "total": 10,
+      "median_ms": 502
+    },
+    "support-triage": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 473
+    }
+  },
+  "openai/gpt-6-luna-decisions": {
+    "email-routing": {
+      "passed": 8,
+      "total": 10,
+      "median_ms": 328
+    },
+    "issue-labeling": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 16942
+    },
+    "lead-qualification": {
+      "passed": 8,
+      "total": 10,
+      "median_ms": 314
+    },
+    "moderation": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 339
+    },
+    "support-triage": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 313
+    }
+  },
+  "cloudflare/clef": {
+    "email-routing": {
+      "passed": 8,
+      "total": 10,
+      "median_ms": 946
+    },
+    "issue-labeling": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 596
+    },
+    "lead-qualification": {
+      "passed": 9,
+      "total": 10,
+      "median_ms": 656
+    },
+    "moderation": {
+      "passed": 7,
+      "total": 10,
+      "median_ms": 598
+    },
+    "support-triage": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 596
+    }
+  },
+  "cloudflare/clef-flash": {
+    "email-routing": {
+      "passed": 8,
+      "total": 10,
+      "median_ms": 730
+    },
+    "issue-labeling": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 1099
+    },
+    "lead-qualification": {
+      "passed": 8,
+      "total": 10,
+      "median_ms": 674
+    },
+    "moderation": {
+      "passed": 7,
+      "total": 10,
+      "median_ms": 681
+    },
+    "support-triage": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 664
+    }
+  }
+}

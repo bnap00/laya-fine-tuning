@@ -1,0 +1,12 @@
+[
+  {
+    "player": "pacman-v1",
+    "games": 200,
+    "won": 63,
+    "pellets": 81.0,
+    "steps": 130.4,
+    "score": 624.7,
+    "agrees_with_teacher": 0.914,
+    "ms_per_move": 42.9
+  }
+]

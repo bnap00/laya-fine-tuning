@@ -1,0 +1,12 @@
+[
+  {
+    "player": "english",
+    "games": 200,
+    "won": 0,
+    "pellets": 11.9,
+    "steps": 26.5,
+    "score": -381.4,
+    "agrees_with_teacher": 0.384,
+    "ms_per_move": 42.8
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "player": "random",
+    "games": 200,
+    "won": 0,
+    "pellets": 10.2,
+    "steps": 27.7,
+    "score": -397.8,
+    "agrees_with_teacher": 0.423,
+    "ms_per_move": null
+  },
+  {
+    "player": "teacher",
+    "games": 200,
+    "won": 78,
+    "pellets": 82.3,
+    "steps": 128.2,
+    "score": 712.8,
+    "agrees_with_teacher": 1.0,
+    "ms_per_move": null
+  }
+]
