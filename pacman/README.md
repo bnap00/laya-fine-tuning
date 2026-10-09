@@ -46,6 +46,7 @@ It wins 39% of games. That's the ceiling we're copying, and v2 reaches it.
 v1 only ever saw states the teacher gets itself into. When v1 makes a mistake it lands
 somewhere the teacher never would, and it has never been shown what to do there. DAgger
 fixes that by letting v1 drive and asking the teacher what it *should* have done at each
-step. One round: 63 → 87 wins out of 200.
+step. One round: 63 → 87 wins out of 200 on the RTX 3050, 63 → 77 when the whole pipeline
+was rerun on an M4 Pro. Either way, level with the teacher's 78.
 
 Numbers are in [`../RESULTS.md`](../RESULTS.md).

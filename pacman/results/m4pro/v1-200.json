@@ -1,0 +1,42 @@
+[
+  {
+    "player": "random",
+    "games": 200,
+    "won": 0,
+    "pellets": 10.2,
+    "steps": 27.7,
+    "score": -397.8,
+    "agrees_with_teacher": 0.423,
+    "ms_per_move": null
+  },
+  {
+    "player": "teacher",
+    "games": 200,
+    "won": 78,
+    "pellets": 82.3,
+    "steps": 128.2,
+    "score": 712.8,
+    "agrees_with_teacher": 1.0,
+    "ms_per_move": null
+  },
+  {
+    "player": "english",
+    "games": 200,
+    "won": 0,
+    "pellets": 12.3,
+    "steps": 28.4,
+    "score": -376.5,
+    "agrees_with_teacher": 0.397,
+    "ms_per_move": 53.6
+  },
+  {
+    "player": "pacman-v1",
+    "games": 200,
+    "won": 63,
+    "pellets": 78.8,
+    "steps": 129.7,
+    "score": 602.8,
+    "agrees_with_teacher": 0.884,
+    "ms_per_move": 53.7
+  }
+]

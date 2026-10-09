@@ -2,14 +2,15 @@
 
 A practical guide to fine-tuning [Laya](https://github.com/NandhaKishorM/laya), the open-source
 (Apache 2.0) decision model, for your own decisions, plus two worked examples. Everything
-here ran on a desktop RTX 3050 with 6 GB of memory. No cloud GPU.
+here ran on a desktop RTX 3050 with 6 GB of memory, then again on a Mac mini with an M4 Pro.
+No cloud GPU.
 
 ![untrained, fine-tuned and DAgger-trained Laya playing the same game](pacman/results/side-by-side.gif)
 
 | | untrained Laya | fine-tuned Laya | the reference |
 | --- | --- | --- | --- |
-| [Pac-Man](pacman/), games won of 200 | 0 | **87** (after one DAgger round) | its teacher: 78 |
-| [Pigeonhole](pigeonhole/), tests passed of 50 | 31 | **44** (ties Cloudflare's Clef) | Jev: 47 |
+| [Pac-Man](pacman/), games won of 200 | 0 | **87** after one DAgger round (M4 Pro: 77) | its teacher: 78 |
+| [Pigeonhole](pigeonhole/), tests passed of 50 | 31 | **44**, ties Cloudflare's Clef (M4 Pro: 42) | Jev: 47 |
 | time per decision | ~100 ms | ~100 ms | Jev: ~500 ms |
 
 Full numbers, costs and timings are in [`RESULTS.md`](RESULTS.md). The story behind them is
@@ -49,7 +50,8 @@ Every fine-tune is the same loop:
 
 ## Step 0: set up
 
-You need Python 3.10+ and, realistically, an NVIDIA GPU with 6 GB or more. Training on a CPU
+You need Python 3.10+ and, realistically, either an NVIDIA GPU with 6 GB or more or an Apple
+Silicon Mac with 16 GB or more of memory ([macOS notes below](#on-a-mac)). Training on a CPU
 works but is very slow.
 
 ```bash
@@ -66,6 +68,35 @@ version `nvidia-smi` reports and install a matching build:
 ```bash
 uv pip install --python .venv/bin/python torch --torch-backend=cu126   # driver supports CUDA 12.x
 ```
+
+### On a Mac
+
+The same three install commands work on Apple Silicon; the stock PyTorch wheel includes the
+Metal (MPS) backend. Check for it instead of CUDA:
+
+```bash
+.venv/bin/python -c "import torch; print(torch.__version__, torch.backends.mps.is_available())"
+```
+
+`finetune.py` picks MPS automatically (`--device auto`), and the training log says
+`device mps`. Nothing else changes: same commands, same flags, same checkpoint format.
+
+Two things differ from an NVIDIA card:
+
+- **Memory.** Laya's trainer only turns on fp16 autocast and gradient checkpointing for CUDA.
+  On MPS it trains in full fp32, so the same runs peaked at 8.8 GB (Pac-Man) and 13.0 GB
+  (Pigeonhole, longer inputs) instead of 3.8 GB. The GPU shares the Mac's RAM, so on a 16 GB Mac
+  close other apps first; 24 GB had room to spare. If it runs out, lower `--micro-batch`.
+- **Speed.** An M4 Pro (16-core GPU, 24 GB) trains about 10% faster than the RTX 3050:
+  25.6 minutes instead of 28 for Pigeonhole, 37 instead of 41 for Pac-Man. Single decisions
+  are a little slower (~52-54 ms a Pac-Man move against ~43 ms), because a batch of one
+  doesn't fill the GPU.
+- **Results.** Same data, same flags, slightly different numerics (fp32 against fp16), so
+  the checkpoints aren't identical. The Mac runs scored 42/50 on Pigeonhole (3050: 44) and
+  77/200 Pac-Man wins after DAgger (3050: 87; the teacher wins 78). Both are within the
+  run-to-run noise of these tests.
+
+Full Mac numbers are in [`RESULTS.md`](RESULTS.md#apple-m4-pro).
 
 ## Step 1: shape the decision
 
@@ -191,8 +222,9 @@ frozen parameters, so this is a wrapper, not a fork.
 | `--text-column`, `--label-column`, `--question-id`, `--instructions` | | CSV input |
 
 On the RTX 3050 a run processes about 10 question-items a second: 28 minutes for 6,358 items
-× 3 epochs, 41 minutes for 12,195 × 2. Anything else using the GPU (another model server, a
-desktop compositor) eats into the 6 GB, so stop it while training.
+× 3 epochs, 41 minutes for 12,195 × 2. An M4 Pro does the same runs in 25.6 and 37 minutes.
+Anything else using the GPU (another model server, a desktop compositor, on a Mac any app)
+eats into its memory, so stop it while training.
 
 ### Read the report
 
@@ -282,9 +314,11 @@ classifier, the equivalent is labelling the production inputs it gets wrong.
 | decision | which way to move, every tick | five classifiers: email routing, issue labelling, lead qualification, moderation, support triage |
 | inputs | 12,595 game states | 1,971 inputs written by Claude Haiku 5.5 |
 | teacher | a hand-written expert, free | Jev on OpenRouter, $0.07 |
-| training | 41 min + 28 min DAgger round | 28 min |
+| training, RTX 3050 | 41 min + 28 min DAgger round | 28 min |
+| training, M4 Pro | 37 min + 24 min DAgger round | 25.6 min |
 | test | 200 games on unseen seeds | Pigeonhole's 50 template test cases |
-| result | 0 → 87 wins (teacher: 78) | 31 → 44 passed (Jev: 47) |
+| result, RTX 3050 | 0 → 87 wins (teacher: 78) | 31 → 44 passed (Jev: 47) |
+| result, M4 Pro | 0 → 77 wins | 31 → 42 passed |
 
 Each folder's README has the exact commands. The Pigeonhole example needs an
 `OPENROUTER_API_KEY` in `.env`; Pac-Man needs nothing but the GPU.

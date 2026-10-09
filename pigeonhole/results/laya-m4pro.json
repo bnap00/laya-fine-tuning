@@ -1,0 +1,56 @@
+{
+  "english": {
+    "email-routing": {
+      "passed": 6,
+      "total": 10,
+      "median_ms": 105
+    },
+    "issue-labeling": {
+      "passed": 5,
+      "total": 10,
+      "median_ms": 146
+    },
+    "lead-qualification": {
+      "passed": 4,
+      "total": 10,
+      "median_ms": 139
+    },
+    "moderation": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 107
+    },
+    "support-triage": {
+      "passed": 6,
+      "total": 10,
+      "median_ms": 151
+    }
+  },
+  "../checkpoints/pigeonhole": {
+    "email-routing": {
+      "passed": 7,
+      "total": 10,
+      "median_ms": 103
+    },
+    "issue-labeling": {
+      "passed": 9,
+      "total": 10,
+      "median_ms": 141
+    },
+    "lead-qualification": {
+      "passed": 6,
+      "total": 10,
+      "median_ms": 137
+    },
+    "moderation": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 105
+    },
+    "support-triage": {
+      "passed": 10,
+      "total": 10,
+      "median_ms": 150
+    }
+  }
+}

@@ -10,7 +10,7 @@ set -a; . ../.env; set +a                       # OPENROUTER_API_KEY
 
 python generate.py --per-template 400            # ~2,000 synthetic inputs, ~$0.10
 python label.py data/inputs.jsonl data/train.jsonl   # Jev's distributions, ~$0.07
-python ../finetune.py data/train.jsonl ../checkpoints/pigeonhole --epochs 3   # ~28 min on an RTX 3050
+python ../finetune.py data/train.jsonl ../checkpoints/pigeonhole --epochs 3   # ~28 min on an RTX 3050, ~26 on an M4 Pro
 
 python harness.py jev-latest openai/gpt-6-luna-decisions cloudflare/clef english ../checkpoints/pigeonhole -v
 ```
