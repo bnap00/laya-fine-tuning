@@ -59,3 +59,25 @@ def test_codex_events_reply_and_usage():
         {"type": "turn.completed", "usage": {"input_tokens": 10, "output_tokens": 2}},
     ])
     assert parse_codex_events(stdout) == ('{"rows": []}', {"input_tokens": 10, "output_tokens": 2}, None)
+
+
+def test_completed_batches_survive_an_interrupt(tmp_path):
+    import pytest
+    from teach import run_jobs
+
+    answers = {"department": {"returns": 0.1, "shipping": 0.8, "billing": 0.1, "other": 0.0},
+               "return_reason": {"other": 1.0}, "angry": 0.1, "urgency": {"0": 0.7, "1": 0.2, "2": 0.1}}
+    calls = []
+
+    def run(prompt, model):
+        calls.append(prompt)
+        if len(calls) == 3:
+            raise KeyboardInterrupt
+        return json.dumps({"rows": [{"input": f"parcel {len(calls)} is late", "answers": answers}]}), {"seconds": 1.0}
+
+    jobs = [(SPEC, f"p{i}") for i in range(3)]
+    with pytest.raises(KeyboardInterrupt):
+        run_jobs(jobs, run, "m", tmp_path, workers=1)
+    rows = (tmp_path / "labelled.jsonl").read_text().splitlines()
+    assert [json.loads(r)["state"]["body"] for r in rows] == ["parcel 1 is late", "parcel 2 is late"]
+    assert len((tmp_path / "usage.jsonl").read_text().splitlines()) == 2

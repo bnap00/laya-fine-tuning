@@ -16,7 +16,7 @@ import subprocess
 import tempfile
 import time
 from collections import Counter
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from agent_rows import parse_reply, to_row, too_close
@@ -127,6 +127,43 @@ def call_with_retry(run, prompt: str, model: str, tries: int = 2):
     return None, usage
 
 
+def run_jobs(jobs, run, model: str, out: Path, workers: int) -> Counter:
+    """Run every (spec, prompt) job and write each batch's rows and usage as it finishes.
+
+    Writing as we go means an interrupted run keeps every batch it already paid for.
+    """
+    counts, seen = Counter(), set()
+    with (out / "labelled.jsonl").open("w") as rows_f, (out / "usage.jsonl").open("w") as usage_f, \
+            ThreadPoolExecutor(workers) as pool:
+        futures = {pool.submit(call_with_retry, run, prompt, model): spec for spec, prompt in jobs}
+        for future in as_completed(futures):
+            spec = futures[future]
+            rows, usage = future.result()
+            for u in usage:
+                usage_f.write(json.dumps({"template": spec["id"], **u}) + "\n")
+            if rows is None:
+                counts["failed_calls"] += 1
+            else:
+                field = spec["input"]["required"][0]
+                tests = [t["input"][field] for t in spec["tests"]]
+                for r in rows:
+                    text = str(r.get("input", "")).strip() if isinstance(r, dict) else ""
+                    if not text or (spec["id"], text.lower()) in seen:
+                        counts["duplicate_or_empty"] += 1
+                        continue
+                    seen.add((spec["id"], text.lower()))
+                    if too_close(text, tests):
+                        counts["too_close_to_a_test"] += 1
+                        continue
+                    row, why = to_row(spec, text, r.get("answers") or {})
+                    counts[why] += 1
+                    if row:
+                        rows_f.write(json.dumps(row) + "\n")
+            rows_f.flush()
+            usage_f.flush()
+    return counts
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--agent", choices=["claude", "codex"], required=True)
@@ -152,32 +189,7 @@ def main():
             jobs.append((spec, build_prompt(spec, rng.choice(STYLES), focuses[i % len(focuses)], args.batch)))
 
     t0 = time.time()
-    with ThreadPoolExecutor(args.workers) as pool:
-        results = list(pool.map(lambda j: (j[0], *call_with_retry(run, j[1], args.model)), jobs))
-
-    counts, seen = Counter(), set()
-    with (out / "labelled.jsonl").open("w") as rows_f, (out / "usage.jsonl").open("w") as usage_f:
-        for spec, rows, usage in results:
-            for u in usage:
-                usage_f.write(json.dumps({"template": spec["id"], **u}) + "\n")
-            if rows is None:
-                counts["failed_calls"] += 1
-                continue
-            field = spec["input"]["required"][0]
-            tests = [t["input"][field] for t in spec["tests"]]
-            for r in rows:
-                text = str(r.get("input", "")).strip() if isinstance(r, dict) else ""
-                if not text or (spec["id"], text.lower()) in seen:
-                    counts["duplicate_or_empty"] += 1
-                    continue
-                seen.add((spec["id"], text.lower()))
-                if too_close(text, tests):
-                    counts["too_close_to_a_test"] += 1
-                    continue
-                row, why = to_row(spec, text, r.get("answers") or {})
-                counts[why] += 1
-                if row:
-                    rows_f.write(json.dumps(row) + "\n")
+    counts = run_jobs(jobs, run, args.model, out, args.workers)
 
     usage = [json.loads(line) for line in (out / "usage.jsonl").open()]
     ok = [u for u in usage if "seconds" in u]
