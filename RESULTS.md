@@ -123,3 +123,84 @@ v1 on the 1,694 held-out states: accuracy against the teacher's top move 0.62 �
 
 Single moves are about a quarter slower than on the RTX 3050 (52-54 ms vs ~43 ms): one row
 doesn't fill the GPU. Scoreboards: [`pacman/results/m4pro/`](pacman/results/m4pro/).
+
+## Agent teachers
+
+The Pigeonhole fine-tune again, with no API key: a coding agent on a personal subscription
+writes the inputs and labels them in one pass ([`pigeonhole/teach.py`](pigeonhole/teach.py)).
+Same five templates, 400 inputs per template, 25 per call, the same 50 tests. Trained and scored
+on the Mac mini (M4 Pro), so compare against the Jev-taught run on the same machine.
+
+> Generating training data with an agent is a great way to learn and to get a first model
+> working. For a real deployment, train on a golden dataset of real inputs with checked labels.
+
+### What the teachers did
+
+| | Claude Code, Opus 5.5 (`claude-opus-5-5`) | Codex, Sol 6.1 (`gpt-6.1-sol`) |
+| --- | --- | --- |
+| calls of 25 inputs | 80 | 80 (+16 retried after a usage limit, below) |
+| rows kept | 1,997 | 1,998 |
+| dropped | 2 missing an answer, 1 too close to a test | 2 too close to a test |
+| wall time (4 calls at a time) | 19.7 min | 25.6 min (two runs) |
+| input tokens | 124,085 (13,234 cached) | 1,579,913 (1,311,872 cached) |
+| output tokens | 472,084 | 336,803 (incl. reasoning) |
+| same work on the API | $10.47 (reported by Claude Code) | ~$4.04 (estimate at $2 / $0.10 cached / $10 per M tokens) |
+
+Claude Code runs headless with a one-line `--system-prompt` and no tools: ~1.6k input tokens a
+call instead of ~30k with its default prompt. Codex can't drop its built-in prompt, so each call
+carries ~20k input tokens, mostly cached.
+
+**The usage limit.** On ChatGPT Plus ($20 a month), Codex hit its five-hour limit after 64 of
+the 80 calls; every `support-triage` call failed. After one rate-limit reset (both windows back
+to 0%), the 16 `support-triage` calls used **28% of the five-hour window and 4% of the weekly
+one**. Scaled up, one 2,000-input run needs about 1.4 five-hour windows and ~20% of a Plus week.
+Claude Code finished in one go.
+
+### Teacher confidence
+
+Highest probability per label, over every label each teacher wrote:
+
+| teacher | mean | labels ≥ 0.99 | labels < 0.7 |
+| --- | --- | --- | --- |
+| Jev | 0.86 | 26% | 18% |
+| Opus 5.5 | 0.84 | 13% | 21% |
+| Sol 6.1 | 0.89 | 32% | 14% |
+
+Writing its own inputs did not make Opus 5.5 overconfident: it hedged more than Jev. Sol 6.1 was
+the most decisive. [`pigeonhole/results/teacher-confidence.json`](pigeonhole/results/teacher-confidence.json)
+
+### Training
+
+| | Opus 5.5-taught | Sol 6.1-taught | Jev-taught (same Mac) |
+| --- | --- | --- | --- |
+| train / held out | 1,797 / 200 inputs | 1,798 / 200 inputs | 6,358 items, no split |
+| question-items, updates | 5,713, 537 | 5,746, 540 | 6,358, 597 |
+| time, peak memory | 22.6 min, 12.8 GB | 21.3 min, 10.9 GB | 25.6 min, 13.0 GB |
+| agreement with its teacher, held out | 0.61 → 0.70 | 0.61 → 0.72 | |
+| ECE, held out | 0.116 → 0.057 | 0.108 → 0.081 | |
+
+The held-out rows are labelled by the same agent, so they measure agreement with the teacher,
+not correctness.
+
+### The 50 tests
+
+| | email routing | issue labelling | lead qualification | moderation | support triage | **total** |
+| --- | --- | --- | --- | --- | --- | --- |
+| Laya, untrained | 6 | 5 | 4 | 10 | 6 | **31 / 50** |
+| Laya, Jev-taught (M4 Pro) | 7 | 9 | 6 | 10 | 10 | **42 / 50** |
+| **Laya, Opus 5.5-taught** | 5 | 9 | 6 | 10 | 10 | **40 / 50** |
+| **Laya, Sol 6.1-taught** | 5 | 9 | 5 | 10 | 9 | **38 / 50** |
+
+Both agent-taught models land two and four cases below the Jev-taught one, and seven and nine
+above untrained. The gap is mostly email routing. Both agent-taught models get the same five
+email cases wrong; the Jev-taught model misses three of those too (a declined-card notice to
+`junk`, a contractor pitch to `sales`, and the outage flagged urgent, which no model passes).
+The two only the agent-taught models miss: a pricing question goes to `junk` and an API-key
+question to `other`. Both agents wrote more `junk` than Jev labelled (20% and 17% of their email
+inputs, against 13%); their few declined-card emails were labelled correctly, so the cause isn't
+established.
+
+Scores: [`pigeonhole/results/claude-taught.json`](pigeonhole/results/claude-taught.json),
+[`pigeonhole/results/codex-taught.json`](pigeonhole/results/codex-taught.json). Data, usage
+per call and summaries: [`pigeonhole/data/claude/`](pigeonhole/data/claude/),
+[`pigeonhole/data/codex/`](pigeonhole/data/codex/).

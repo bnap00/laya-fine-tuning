@@ -1,0 +1,45 @@
+{
+  "agent": "codex",
+  "model": "gpt-6.1-sol",
+  "runs": [
+    {
+      "agent": "codex",
+      "model": "gpt-6.1-sol",
+      "calls": 96,
+      "failed_calls": 16,
+      "rows": {
+        "ok": 1598,
+        "too_close_to_a_test": 2
+      },
+      "wall_minutes": 20.4,
+      "input_tokens": 1262384,
+      "cached_input_tokens": 1046912,
+      "output_tokens": 263921,
+      "cost_usd": null
+    },
+    {
+      "agent": "codex",
+      "model": "gpt-6.1-sol",
+      "calls": 16,
+      "failed_calls": 0,
+      "rows": {
+        "ok": 400
+      },
+      "wall_minutes": 5.2,
+      "input_tokens": 317529,
+      "cached_input_tokens": 264960,
+      "output_tokens": 72882,
+      "cost_usd": null
+    }
+  ],
+  "calls": 112,
+  "failed_calls_first_run": 16,
+  "rows_ok": 1998,
+  "too_close_to_a_test": 2,
+  "wall_minutes": 25.6,
+  "input_tokens": 1579913,
+  "cached_input_tokens": 1311872,
+  "output_tokens": 336803,
+  "plan": "ChatGPT Plus",
+  "usage_note": "first run hit the 5-hour limit after 64 of 80 batches; support-triage (16 batches) rerun after one reset used 28% of the 5-hour window and 4% of the weekly"
+}

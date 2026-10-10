@@ -1,0 +1,16 @@
+{
+  "agent": "claude",
+  "model": "claude-opus-5-5",
+  "calls": 80,
+  "failed_calls": 0,
+  "rows": {
+    "ok": 1997,
+    "too_close_to_a_test": 1,
+    "missing_question": 2
+  },
+  "wall_minutes": 19.7,
+  "input_tokens": 124085,
+  "cached_input_tokens": 13234,
+  "output_tokens": 472084,
+  "cost_usd": 10.47
+}

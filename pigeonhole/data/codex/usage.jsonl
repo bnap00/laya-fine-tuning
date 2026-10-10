@@ -1,0 +1,112 @@
+{"template": "email-routing", "seconds": 82.9, "input_tokens": 19654, "cached_input_tokens": 12288, "output_tokens": 4401, "cost_usd": null}
+{"template": "email-routing", "seconds": 79.6, "input_tokens": 19656, "cached_input_tokens": 12288, "output_tokens": 4176, "cost_usd": null}
+{"template": "email-routing", "seconds": 36.2, "input_tokens": 19644, "cached_input_tokens": 7168, "output_tokens": 2026, "cost_usd": null}
+{"template": "email-routing", "seconds": 72.3, "input_tokens": 19643, "cached_input_tokens": 12288, "output_tokens": 3595, "cost_usd": null}
+{"template": "email-routing", "seconds": 88.2, "input_tokens": 19644, "cached_input_tokens": 12288, "output_tokens": 4526, "cost_usd": null}
+{"template": "email-routing", "seconds": 85.7, "input_tokens": 19645, "cached_input_tokens": 12288, "output_tokens": 4158, "cost_usd": null}
+{"template": "email-routing", "seconds": 76.6, "input_tokens": 19654, "cached_input_tokens": 12288, "output_tokens": 4211, "cost_usd": null}
+{"template": "email-routing", "seconds": 52.3, "input_tokens": 19641, "cached_input_tokens": 7168, "output_tokens": 2860, "cost_usd": null}
+{"template": "email-routing", "seconds": 85.3, "input_tokens": 19641, "cached_input_tokens": 18048, "output_tokens": 4174, "cost_usd": null}
+{"template": "email-routing", "seconds": 75.7, "input_tokens": 19651, "cached_input_tokens": 12288, "output_tokens": 4108, "cost_usd": null}
+{"template": "email-routing", "seconds": 84.7, "input_tokens": 19644, "cached_input_tokens": 18048, "output_tokens": 4439, "cost_usd": null}
+{"template": "email-routing", "seconds": 81.4, "input_tokens": 19644, "cached_input_tokens": 12288, "output_tokens": 4105, "cost_usd": null}
+{"template": "email-routing", "seconds": 92.8, "input_tokens": 19646, "cached_input_tokens": 12288, "output_tokens": 4391, "cost_usd": null}
+{"template": "email-routing", "seconds": 92.6, "input_tokens": 19639, "cached_input_tokens": 18048, "output_tokens": 4897, "cost_usd": null}
+{"template": "email-routing", "seconds": 68.4, "input_tokens": 19643, "cached_input_tokens": 18048, "output_tokens": 3170, "cost_usd": null}
+{"template": "email-routing", "seconds": 84.4, "input_tokens": 19635, "cached_input_tokens": 18048, "output_tokens": 4450, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 85.3, "input_tokens": 19822, "cached_input_tokens": 12288, "output_tokens": 5030, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 63.7, "input_tokens": 19813, "cached_input_tokens": 12288, "output_tokens": 4377, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 60.0, "input_tokens": 19818, "cached_input_tokens": 12288, "output_tokens": 4166, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 61.9, "input_tokens": 19817, "cached_input_tokens": 18048, "output_tokens": 4373, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 62.4, "input_tokens": 19813, "cached_input_tokens": 18048, "output_tokens": 4338, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 61.9, "input_tokens": 19812, "cached_input_tokens": 18048, "output_tokens": 4673, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 50.4, "input_tokens": 19810, "cached_input_tokens": 18048, "output_tokens": 4043, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 93.8, "input_tokens": 19822, "cached_input_tokens": 18048, "output_tokens": 5202, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 93.0, "input_tokens": 19820, "cached_input_tokens": 18048, "output_tokens": 5331, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 60.6, "input_tokens": 19820, "cached_input_tokens": 18048, "output_tokens": 4337, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 56.5, "input_tokens": 19818, "cached_input_tokens": 18048, "output_tokens": 3917, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 69.4, "input_tokens": 19819, "cached_input_tokens": 18048, "output_tokens": 4463, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 82.1, "input_tokens": 19820, "cached_input_tokens": 18048, "output_tokens": 4070, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 59.5, "input_tokens": 19816, "cached_input_tokens": 18048, "output_tokens": 4087, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 58.8, "input_tokens": 19827, "cached_input_tokens": 18048, "output_tokens": 4314, "cost_usd": null}
+{"template": "issue-labeling", "seconds": 61.8, "input_tokens": 19824, "cached_input_tokens": 18048, "output_tokens": 4202, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 75.8, "input_tokens": 19707, "cached_input_tokens": 18048, "output_tokens": 4012, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 77.3, "input_tokens": 19710, "cached_input_tokens": 18048, "output_tokens": 4285, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 77.0, "input_tokens": 19712, "cached_input_tokens": 18048, "output_tokens": 4502, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 81.3, "input_tokens": 19712, "cached_input_tokens": 18048, "output_tokens": 4232, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 75.8, "input_tokens": 19706, "cached_input_tokens": 18048, "output_tokens": 4216, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 96.3, "input_tokens": 19711, "cached_input_tokens": 12288, "output_tokens": 4668, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 70.9, "input_tokens": 19715, "cached_input_tokens": 18048, "output_tokens": 3656, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 52.8, "input_tokens": 19712, "cached_input_tokens": 12288, "output_tokens": 3298, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 90.9, "input_tokens": 19711, "cached_input_tokens": 18048, "output_tokens": 4638, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 47.7, "input_tokens": 19707, "cached_input_tokens": 18048, "output_tokens": 3175, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 148.4, "input_tokens": 19716, "cached_input_tokens": 18048, "output_tokens": 6644, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 69.0, "input_tokens": 19722, "cached_input_tokens": 18048, "output_tokens": 4177, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 52.6, "input_tokens": 19710, "cached_input_tokens": 18048, "output_tokens": 3243, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 67.4, "input_tokens": 19705, "cached_input_tokens": 18048, "output_tokens": 3712, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 79.8, "input_tokens": 19708, "cached_input_tokens": 18048, "output_tokens": 4053, "cost_usd": null}
+{"template": "lead-qualification", "seconds": 74.8, "input_tokens": 19718, "cached_input_tokens": 18048, "output_tokens": 4399, "cost_usd": null}
+{"template": "moderation", "seconds": 49.4, "input_tokens": 19724, "cached_input_tokens": 18048, "output_tokens": 2667, "cost_usd": null}
+{"template": "moderation", "seconds": 75.1, "input_tokens": 19725, "cached_input_tokens": 18048, "output_tokens": 3933, "cost_usd": null}
+{"template": "moderation", "seconds": 103.1, "input_tokens": 19727, "cached_input_tokens": 18048, "output_tokens": 5026, "cost_usd": null}
+{"template": "moderation", "seconds": 57.0, "input_tokens": 19722, "cached_input_tokens": 18048, "output_tokens": 3582, "cost_usd": null}
+{"template": "moderation", "seconds": 60.8, "input_tokens": 19726, "cached_input_tokens": 18048, "output_tokens": 3608, "cost_usd": null}
+{"template": "moderation", "seconds": 73.8, "input_tokens": 19723, "cached_input_tokens": 18048, "output_tokens": 4021, "cost_usd": null}
+{"template": "moderation", "seconds": 62.5, "input_tokens": 19724, "cached_input_tokens": 18048, "output_tokens": 3773, "cost_usd": null}
+{"template": "moderation", "seconds": 62.9, "input_tokens": 19713, "cached_input_tokens": 12288, "output_tokens": 3688, "cost_usd": null}
+{"template": "moderation", "seconds": 74.2, "input_tokens": 19726, "cached_input_tokens": 18048, "output_tokens": 4092, "cost_usd": null}
+{"template": "moderation", "seconds": 68.2, "input_tokens": 19721, "cached_input_tokens": 18048, "output_tokens": 3729, "cost_usd": null}
+{"template": "moderation", "seconds": 103.0, "input_tokens": 19727, "cached_input_tokens": 18048, "output_tokens": 5254, "cost_usd": null}
+{"template": "moderation", "seconds": 84.5, "input_tokens": 19729, "cached_input_tokens": 18048, "output_tokens": 3900, "cost_usd": null}
+{"template": "moderation", "seconds": 51.1, "input_tokens": 19729, "cached_input_tokens": 18048, "output_tokens": 2642, "cost_usd": null}
+{"template": "moderation", "seconds": 74.2, "input_tokens": 19727, "cached_input_tokens": 18048, "output_tokens": 4015, "cost_usd": null}
+{"template": "moderation", "seconds": 64.7, "input_tokens": 19725, "cached_input_tokens": 18048, "output_tokens": 3808, "cost_usd": null}
+{"template": "moderation", "seconds": 99.0, "input_tokens": 19719, "cached_input_tokens": 18048, "output_tokens": 4663, "cost_usd": null}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "error": "codex exited 1: "}
+{"template": "support-triage", "seconds": 72.4, "input_tokens": 19858, "cached_input_tokens": 18048, "output_tokens": 4483, "cost_usd": null}
+{"template": "support-triage", "seconds": 75.1, "input_tokens": 19856, "cached_input_tokens": 18048, "output_tokens": 4576, "cost_usd": null}
+{"template": "support-triage", "seconds": 58.5, "input_tokens": 19846, "cached_input_tokens": 18048, "output_tokens": 4048, "cost_usd": null}
+{"template": "support-triage", "seconds": 69.8, "input_tokens": 19845, "cached_input_tokens": 18048, "output_tokens": 4222, "cost_usd": null}
+{"template": "support-triage", "seconds": 89.7, "input_tokens": 19838, "cached_input_tokens": 18048, "output_tokens": 4880, "cost_usd": null}
+{"template": "support-triage", "seconds": 85.4, "input_tokens": 19843, "cached_input_tokens": 18048, "output_tokens": 4620, "cost_usd": null}
+{"template": "support-triage", "seconds": 77.1, "input_tokens": 19854, "cached_input_tokens": 18048, "output_tokens": 4539, "cost_usd": null}
+{"template": "support-triage", "seconds": 75.9, "input_tokens": 19843, "cached_input_tokens": 0, "output_tokens": 4366, "cost_usd": null}
+{"template": "support-triage", "seconds": 77.4, "input_tokens": 19845, "cached_input_tokens": 18048, "output_tokens": 4545, "cost_usd": null}
+{"template": "support-triage", "seconds": 78.9, "input_tokens": 19841, "cached_input_tokens": 18048, "output_tokens": 4542, "cost_usd": null}
+{"template": "support-triage", "seconds": 79.6, "input_tokens": 19851, "cached_input_tokens": 12288, "output_tokens": 4614, "cost_usd": null}
+{"template": "support-triage", "seconds": 74.5, "input_tokens": 19848, "cached_input_tokens": 18048, "output_tokens": 4607, "cost_usd": null}
+{"template": "support-triage", "seconds": 86.4, "input_tokens": 19846, "cached_input_tokens": 18048, "output_tokens": 5010, "cost_usd": null}
+{"template": "support-triage", "seconds": 81.4, "input_tokens": 19841, "cached_input_tokens": 18048, "output_tokens": 4766, "cost_usd": null}
+{"template": "support-triage", "seconds": 73.2, "input_tokens": 19835, "cached_input_tokens": 18048, "output_tokens": 4172, "cost_usd": null}
+{"template": "support-triage", "seconds": 79.9, "input_tokens": 19839, "cached_input_tokens": 18048, "output_tokens": 4892, "cost_usd": null}

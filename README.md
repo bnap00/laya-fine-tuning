@@ -152,6 +152,7 @@ teaches Laya how sure to be, and Laya's trainer (RLCD) is built around copying a
 | teacher | cost | used in |
 | --- | --- | --- |
 | a hosted decision model (Jev, Clef, GPT-6 Luna) | per call, tiny | [`pigeonhole/label.py`](pigeonhole/label.py): Jev, $0.07 for 1,971 inputs |
+| your Claude Code or Codex subscription, writing and labelling in one pass | your plan's usage | [`pigeonhole/teach.py`](pigeonhole/teach.py): see [RESULTS.md](RESULTS.md#agent-teachers) |
 | code that already makes the decision (rules, search, an expert system) | free | [`pacman/agents.py`](pacman/agents.py): 20 lines of distance arithmetic |
 | people (reviewed tickets, moderation decisions) | already paid for | use hard labels (`expected`) |
 

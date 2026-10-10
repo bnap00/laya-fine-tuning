@@ -1,0 +1,20 @@
+{
+  "jev": {
+    "labels": 6758,
+    "mean_top": 0.86,
+    "share_ge_0.99": 0.263,
+    "share_lt_0.7": 0.179
+  },
+  "claude": {
+    "labels": 6791,
+    "mean_top": 0.839,
+    "share_ge_0.99": 0.13,
+    "share_lt_0.7": 0.213
+  },
+  "codex": {
+    "labels": 6838,
+    "mean_top": 0.891,
+    "share_ge_0.99": 0.316,
+    "share_lt_0.7": 0.138
+  }
+}
