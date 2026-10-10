@@ -55,6 +55,7 @@ def main():
     ap.add_argument("--eval-data")
     ap.add_argument("--shuffle-options", action="store_true")
     ap.add_argument("--device", default="auto", help="auto, cuda, mps or cpu")
+    ap.add_argument("--seed", type=int, default=0, help="shuffling and noise; change it to rerun with a different draw")
     csv = ap.add_argument_group("CSV input (one labelled text per row)")
     csv.add_argument("--text-column", default="text")
     csv.add_argument("--label-column", default="label")
@@ -72,6 +73,7 @@ def main():
         max_len=args.max_len,
         eval_data=args.eval_data,
         shuffle_options=("choice",) if args.shuffle_options else (),
+        seed=args.seed,
         text_column=args.text_column,
         label_column=args.label_column,
         question_id=args.question_id,
