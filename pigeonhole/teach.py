@@ -71,14 +71,13 @@ def run_claude(prompt: str, model: str) -> tuple[str, dict]:
     }
 
 
-def run_codex(prompt: str, model: str) -> tuple[str, dict]:
-    t = time.time()
-    with tempfile.TemporaryDirectory() as cwd:
-        out = subprocess.run(
-            ["codex", "exec", "--json", "--ephemeral", "--skip-git-repo-check", "-s", "read-only", "-m", model, "-"],
-            input=prompt, capture_output=True, text=True, cwd=cwd, timeout=900)
-    text, usage = "", {}
-    for line in out.stdout.splitlines():
+def parse_codex_events(stdout: str) -> tuple[str, dict, str | None]:
+    """The reply text, token usage and error message from `codex exec --json` output.
+
+    Codex reports failures such as a plan's usage limit as events on stdout, not stderr.
+    """
+    text, usage, error = "", {}, None
+    for line in stdout.splitlines():
         try:
             ev = json.loads(line)
         except json.JSONDecodeError:
@@ -87,8 +86,22 @@ def run_codex(prompt: str, model: str) -> tuple[str, dict]:
             text = ev["item"]["text"]
         elif ev.get("type") == "turn.completed":
             usage = ev.get("usage") or {}
+        elif ev.get("type") == "error":
+            error = ev.get("message")
+        elif ev.get("type") == "turn.failed":
+            error = (ev.get("error") or {}).get("message") or error
+    return text, usage, error
+
+
+def run_codex(prompt: str, model: str) -> tuple[str, dict]:
+    t = time.time()
+    with tempfile.TemporaryDirectory() as cwd:
+        out = subprocess.run(
+            ["codex", "exec", "--json", "--ephemeral", "--skip-git-repo-check", "-s", "read-only", "-m", model, "-"],
+            input=prompt, capture_output=True, text=True, cwd=cwd, timeout=900)
+    text, usage, error = parse_codex_events(out.stdout)
     if out.returncode != 0 and not text:
-        raise RuntimeError(f"codex exited {out.returncode}: {out.stderr[-300:]}")
+        raise RuntimeError(f"codex exited {out.returncode}: {error or out.stderr[-300:]}")
     return text, {
         "seconds": round(time.time() - t, 1),
         "input_tokens": usage.get("input_tokens", 0),
