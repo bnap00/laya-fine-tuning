@@ -154,7 +154,7 @@ carries ~20k input tokens, mostly cached.
 the 80 calls; every `support-triage` call failed. After one rate-limit reset (both windows back
 to 0%), the 16 `support-triage` calls used **28% of the five-hour window and 4% of the weekly
 one**. Scaled up, one 2,000-input run needs about 1.4 five-hour windows and ~20% of a Plus week.
-Claude Code finished in one go.
+Claude Code, on a $100 Claude plan (five times the price), finished in one go.
 
 ### Teacher confidence
 
