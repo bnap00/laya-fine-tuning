@@ -61,6 +61,9 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
 ```
 
+Already have a venv from an older checkout? Add `--upgrade` to the install so it picks up the
+minimum versions in `requirements.txt`, which skip releases with known vulnerabilities.
+
 If that prints `False` on a machine with an NVIDIA card, PyTorch was built for a newer CUDA than
 your driver supports. Nothing crashes; everything quietly runs on the CPU. Check the CUDA
 version `nvidia-smi` reports and install a matching build:
@@ -329,6 +332,15 @@ finetune.py            the training wrapper (top-N layers, calibration, checkpoi
 pacman/                game, teacher, dataset builder, scoreboard, GIFs
 pigeonhole/            input generator, Jev labeller, scoring harness, templates, data
 RESULTS.md             every number, with costs and timings
+```
+
+## Contributing
+
+Commits are checked for secrets with [gitleaks](https://github.com/gitleaks/gitleaks), here
+through [pre-commit](https://pre-commit.com) and again in CI:
+
+```bash
+uvx pre-commit install
 ```
 
 ## License
