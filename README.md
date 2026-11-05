@@ -50,7 +50,7 @@ Every fine-tune is the same loop:
 
 ## Step 0: set up
 
-You need Python 3.10+ and, realistically, either an NVIDIA GPU with 6 GB or more or an Apple
+You need Python 3.11+ and, realistically, either an NVIDIA GPU with 6 GB or more or an Apple
 Silicon Mac with 16 GB or more of memory ([macOS notes below](#on-a-mac)). Training on a CPU
 works but is very slow.
 
