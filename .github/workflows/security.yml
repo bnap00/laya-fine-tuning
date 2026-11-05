@@ -23,14 +23,15 @@ jobs:
         with:
           enable-cache: false
       # OSV-Scanner doesn't resolve Python's transitive dependencies, so pin the full set first:
-      # every platform, every supported Python. --recursive picks the file up by name.
+      # every platform, every supported Python. Name both files: --recursive skips the resolved
+      # one (it's gitignored) and fails outright when combined with --lockfile.
       - name: Resolve requirements.txt
         run: uv pip compile requirements.txt --universal --python-version 3.11 --no-header -o requirements-resolved.txt
       - uses: google/osv-scanner-action/osv-scanner-action@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
         with:
           scan-args: |-
-            --recursive
-            ./
+            --lockfile=./requirements.txt
+            --lockfile=requirements.txt:./requirements-resolved.txt
 
   gitleaks:
     name: Gitleaks
