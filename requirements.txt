@@ -8,7 +8,7 @@ httpx>=0.28.1
 # Not used directly: floors on Laya's dependencies so an older install upgrades past known
 # vulnerabilities. Add `--upgrade` to the install command to apply them to an existing venv.
 torch>=2.13.0
-transformers>=5.10.0
+transformers>=5.22.1
 certifi>=2026.10.18
 filelock>=4.2.1
 httpx2>=2.12.0
