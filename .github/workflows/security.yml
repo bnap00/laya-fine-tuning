@@ -50,6 +50,10 @@ jobs:
           curl -fsSLo "$RUNNER_TEMP/$tarball" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/$tarball"
           echo "$GITLEAKS_SHA256  $RUNNER_TEMP/$tarball" | sha256sum -c -
           tar -xzf "$RUNNER_TEMP/$tarball" -C "$RUNNER_TEMP" gitleaks
-      # The whole history every time: for a PR that includes every commit on its branch.
+      # The whole history every time: for a PR that includes every commit on its branch. These are
+      # gitleaks' default log options plus merge diffs, so a secret added while resolving a merge
+      # conflict is caught too.
       - name: Scan history
-        run: '"$RUNNER_TEMP/gitleaks" git --redact --verbose .'
+        run: >-
+          "$RUNNER_TEMP/gitleaks" git --redact --verbose
+          --log-opts="--full-history --all --diff-filter=tuxdb --diff-merges=first-parent" .
