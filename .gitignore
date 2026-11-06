@@ -5,3 +5,4 @@ checkpoints/
 logs/
 *.pt
 pacman/data/
+requirements-resolved.txt

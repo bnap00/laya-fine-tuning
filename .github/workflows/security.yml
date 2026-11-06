@@ -1,0 +1,59 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  osv-scanner:
+    name: OSV-Scanner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: false
+      # OSV-Scanner doesn't resolve Python's transitive dependencies, so pin the full set first:
+      # every platform, every supported Python. Name both files: --recursive skips the resolved
+      # one (it's gitignored) and fails outright when combined with --lockfile.
+      - name: Resolve requirements.txt
+        run: uv pip compile requirements.txt --universal --python-version 3.11 --no-header -o requirements-resolved.txt
+      - uses: google/osv-scanner-action/osv-scanner-action@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
+        with:
+          scan-args: |-
+            --lockfile=./requirements.txt
+            --lockfile=requirements.txt:./requirements-resolved.txt
+
+  gitleaks:
+    name: Gitleaks
+    runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: 8.30.1 # keep in step with .pre-commit-config.yaml
+      GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install gitleaks
+        run: |
+          tarball="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -fsSLo "$RUNNER_TEMP/$tarball" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/$tarball"
+          echo "$GITLEAKS_SHA256  $RUNNER_TEMP/$tarball" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/$tarball" -C "$RUNNER_TEMP" gitleaks
+      # The whole history every time: for a PR that includes every commit on its branch. These are
+      # gitleaks' default log options plus merge diffs, so a secret added while resolving a merge
+      # conflict is caught too.
+      - name: Scan history
+        run: >-
+          "$RUNNER_TEMP/gitleaks" git --redact --verbose
+          --log-opts="--full-history --all --diff-filter=tuxdb --diff-merges=first-parent" .
